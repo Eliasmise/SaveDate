@@ -1,40 +1,8 @@
 const weddingDate = new Date("2027-08-07T00:00:00-06:00");
 
 const backgroundMusic = document.querySelector("[data-background-music]");
-const musicControl = document.querySelector("[data-music-control]");
-const musicLabel = document.querySelector("[data-music-label]");
-
 backgroundMusic.volume = 0.55;
-
-function setMusicState(isPlaying) {
-  musicControl.classList.toggle("is-playing", isPlaying);
-  musicControl.setAttribute("aria-pressed", String(isPlaying));
-  musicControl.setAttribute("aria-label", isPlaying ? "Pause background music" : "Play background music");
-  musicLabel.textContent = isPlaying ? "Pause music" : "Play our song";
-}
-
-backgroundMusic.addEventListener("play", () => setMusicState(true));
-backgroundMusic.addEventListener("pause", () => setMusicState(false));
-backgroundMusic.addEventListener("error", () => {
-  setMusicState(false);
-  musicLabel.textContent = "Music unavailable";
-  musicControl.disabled = true;
-});
-
-musicControl.addEventListener("click", async () => {
-  if (!backgroundMusic.paused) {
-    backgroundMusic.pause();
-    return;
-  }
-
-  try {
-    await backgroundMusic.play();
-  } catch {
-    setMusicState(false);
-  }
-});
-
-backgroundMusic.play().catch(() => setMusicState(false));
+backgroundMusic.play().catch(() => {});
 
 const units = {
   days: document.querySelector("[data-days]"),
