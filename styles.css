@@ -106,6 +106,72 @@ button {
   transform: translateY(0);
 }
 
+.music-control {
+  position: fixed;
+  z-index: 88;
+  right: clamp(18px, 3vw, 42px);
+  bottom: clamp(18px, 3vw, 34px);
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 15px 8px 9px;
+  border: 1px solid rgba(111, 46, 55, 0.28);
+  border-radius: 999px;
+  background: rgba(244, 239, 231, 0.9);
+  box-shadow: 0 12px 38px rgba(62, 37, 29, 0.12);
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+  color: var(--wine);
+  font: 500 9px/1 var(--mono);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  transition: transform 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.music-control:hover,
+.music-control:focus-visible {
+  transform: translateY(-2px);
+  background: var(--wine);
+  color: var(--paper);
+  outline: none;
+}
+
+.music-control__bars {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.music-control__bars i {
+  width: 1px;
+  height: 8px;
+  transform-origin: center;
+  background: currentColor;
+}
+
+.music-control__bars i:nth-child(2) { height: 12px; }
+.music-control__bars i:nth-child(3) { height: 6px; }
+.music-control__bars i:nth-child(4) { height: 10px; }
+
+.music-control.is-playing .music-control__bars i {
+  animation: music-bar 760ms ease-in-out infinite alternate;
+}
+
+.music-control.is-playing .music-control__bars i:nth-child(2) { animation-delay: -420ms; }
+.music-control.is-playing .music-control__bars i:nth-child(3) { animation-delay: -180ms; }
+.music-control.is-playing .music-control__bars i:nth-child(4) { animation-delay: -560ms; }
+
+@keyframes music-bar {
+  from { transform: scaleY(0.42); }
+  to { transform: scaleY(1); }
+}
+
 .masthead {
   position: fixed;
   z-index: 90;
@@ -1118,6 +1184,18 @@ button {
   .masthead,
   .masthead.is-scrolled {
     padding: 15px 18px;
+  }
+
+  .music-control {
+    right: 14px;
+    bottom: 14px;
+    min-height: 42px;
+    padding: 6px 12px 6px 7px;
+  }
+
+  .music-control__bars {
+    width: 28px;
+    height: 28px;
   }
 
   .hero {

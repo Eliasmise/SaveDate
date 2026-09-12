@@ -33,6 +33,20 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
+    <audio data-background-music src="/audio/our-song.mp3" preload="none" loop></audio>
+    <button
+      class="music-control"
+      type="button"
+      aria-label="Play background music"
+      aria-pressed="false"
+      data-music-control
+    >
+      <span class="music-control__bars" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+      </span>
+      <span data-music-label>Play our song</span>
+    </button>
+
     <header class="masthead" data-header>
       <a class="monogram" href="#top" aria-label="Elias and Diana — back to top">
         <span>E</span><i aria-hidden="true">&amp;</i><span>D</span>
