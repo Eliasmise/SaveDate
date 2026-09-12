@@ -13,17 +13,17 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Elias &amp; Diana — Save the Date" />
     <meta property="og:description" content="Saturday, August 7, 2027. Formal invitation to follow." />
-    <meta property="og:image" content="/assets/og.png" />
+    <meta property="og:image" content="/assets/elias-diana.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Elias &amp; Diana — Save the Date" />
     <meta name="twitter:description" content="Saturday, August 7, 2027. Formal invitation to follow." />
-    <meta name="twitter:image" content="/assets/og.png" />
+    <meta name="twitter:image" content="/assets/elias-diana.jpg" />
 
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Italiana&amp;family=Manrope:wght@400;500;600&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Italiana&amp;family=Manrope:wght@400;500;600&amp;family=Mrs+Saint+Delafield&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
@@ -66,11 +66,9 @@
         <div class="hero__year" aria-hidden="true">Twenty twenty-seven</div>
 
         <div class="hero__composition reveal">
-          <p class="hero__kicker">You’re invited to save the date</p>
-
           <figure class="hero__portrait">
             <img
-              src="/assets/elias-diana-portrait.jpg"
+              src="/assets/elias-diana.jpg"
               alt="Elias and Diana smiling together"
               width="1394"
               height="1128"
@@ -80,15 +78,20 @@
 
           <h1 class="hero__names" id="hero-title">
             <span class="hero__name hero__name--first">Elias</span>
-            <span class="hero__ampersand" aria-hidden="true">&amp;</span>
             <span class="hero__name hero__name--second">Diana</span>
           </h1>
 
-          <div class="hero__seal" aria-label="Save the date, August 7, 2027">
+          <a
+            class="hero__seal"
+            href="/save-the-date.ics"
+            download
+            aria-label="Add Elias and Diana's wedding date to your calendar"
+          >
             <span>Save</span>
             <i aria-hidden="true">the</i>
             <span>Date</span>
-          </div>
+            <small>↗</small>
+          </a>
         </div>
 
         <a class="scroll-cue" href="#date">
@@ -132,7 +135,7 @@
           <div class="story__photo-wrap">
             <img
               class="story__photo"
-              src="/assets/elias-diana-grain.jpg"
+              src="/assets/elias-diana.jpg"
               alt="A candid portrait of Elias and Diana"
               width="1394"
               height="1128"
