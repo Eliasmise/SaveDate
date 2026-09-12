@@ -419,21 +419,22 @@ button {
   color: var(--wine);
 }
 
-.date-ribbon div {
+.date-ribbon__track {
   display: flex;
   width: max-content;
+  will-change: transform;
+  animation: ribbon 78s linear infinite;
+}
+
+.date-ribbon__group {
+  display: flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 38px;
-  padding: 17px 0;
+  padding: 17px 38px 17px 0;
   font: 400 11px/1 var(--mono);
   letter-spacing: 0.17em;
   text-transform: uppercase;
-  animation: ribbon 28s linear infinite;
-}
-
-.date-ribbon div::before,
-.date-ribbon div::after {
-  content: "Elias & Diana  ◆  August 7, 2027  ◆";
   white-space: pre;
 }
 
@@ -444,7 +445,7 @@ button {
 }
 
 @keyframes ribbon {
-  to { transform: translateX(-33.333%); }
+  to { transform: translateX(-50%); }
 }
 
 .section {
@@ -1169,8 +1170,9 @@ button {
     bottom: 20px;
   }
 
-  .date-ribbon div {
+  .date-ribbon__group {
     gap: 26px;
+    padding-right: 26px;
   }
 
   .section {
