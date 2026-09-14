@@ -4,6 +4,120 @@ const backgroundMusic = document.querySelector("[data-background-music]");
 backgroundMusic.volume = 0.55;
 backgroundMusic.play().catch(() => {});
 
+const opening = document.querySelector("[data-opening]");
+const openingStage = document.querySelector("[data-opening-stage]");
+const openingCta = document.querySelector("[data-opening-cta]");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+const mix = (from, to, progress) => from + (to - from) * progress;
+const phase = (progress, start, end) => clamp((progress - start) / (end - start));
+const smoothstep = (progress) => progress * progress * (3 - 2 * progress);
+const easeOutCubic = (progress) => 1 - (1 - progress) ** 3;
+
+let openingFrame = 0;
+let openingCtaReady;
+
+function setOpeningCtaReady(ready) {
+  if (ready === openingCtaReady) return;
+  openingCtaReady = ready;
+  opening.classList.toggle("is-card-ready", ready);
+
+  if (ready) {
+    openingCta.removeAttribute("tabindex");
+    openingCta.removeAttribute("aria-hidden");
+  } else {
+    openingCta.setAttribute("tabindex", "-1");
+    openingCta.setAttribute("aria-hidden", "true");
+  }
+}
+
+function setReducedOpening() {
+  opening.classList.add("is-reduced-motion", "is-flap-behind");
+  openingStage.removeAttribute("style");
+  opening.style.removeProperty("--prompt-opacity");
+  setOpeningCtaReady(true);
+}
+
+function renderOpening() {
+  openingFrame = 0;
+
+  if (reducedMotion.matches) {
+    setReducedOpening();
+    return;
+  }
+
+  opening.classList.remove("is-reduced-motion");
+
+  const viewportHeight = window.innerHeight;
+  const bounds = opening.getBoundingClientRect();
+  const scrollDistance = Math.max(1, bounds.height - viewportHeight);
+  const progress = clamp(-bounds.top / scrollDistance);
+
+  const flapProgress = smoothstep(phase(progress, 0.08, 0.31));
+  const cardProgress = easeOutCubic(phase(progress, 0.25, 0.64));
+  const settleProgress = smoothstep(phase(progress, 0.58, 0.88));
+  const copyProgress = smoothstep(phase(progress, 0.58, 0.82));
+  const envelopeFade = smoothstep(phase(progress, 0.74, 0.96));
+  const promptFade = smoothstep(phase(progress, 0.03, 0.18));
+
+  const extractedCardY = mix(viewportHeight * 0.015, -viewportHeight * 0.22, cardProgress);
+  const cardY = mix(extractedCardY, -viewportHeight * 0.042, settleProgress);
+  const extractedScale = mix(0.58, 0.85, cardProgress);
+  const cardScale = mix(extractedScale, 0.98, settleProgress);
+  const extractedRotation = mix(-0.4, -1.15, cardProgress);
+  const cardRotation = mix(extractedRotation, 0.55, settleProgress);
+
+  openingStage.style.setProperty("--flap-angle", `${mix(0, 178, flapProgress).toFixed(3)}deg`);
+  openingStage.style.setProperty("--card-opacity", smoothstep(phase(progress, 0.17, 0.28)).toFixed(4));
+  openingStage.style.setProperty("--card-y", `${cardY.toFixed(2)}px`);
+  openingStage.style.setProperty("--card-scale", cardScale.toFixed(4));
+  openingStage.style.setProperty("--card-rotate", `${cardRotation.toFixed(3)}deg`);
+  openingStage.style.setProperty("--copy-opacity", copyProgress.toFixed(4));
+  openingStage.style.setProperty("--envelope-y", `${mix(0, viewportHeight * 0.34, settleProgress).toFixed(2)}px`);
+  openingStage.style.setProperty("--envelope-opacity", mix(1, 0.28, envelopeFade).toFixed(4));
+  opening.style.setProperty("--prompt-opacity", (1 - promptFade).toFixed(4));
+
+  opening.classList.toggle("is-flap-behind", flapProgress >= 0.5);
+  setOpeningCtaReady(progress >= 0.8);
+}
+
+function queueOpeningRender() {
+  if (openingFrame) return;
+  openingFrame = window.requestAnimationFrame(renderOpening);
+}
+
+function handleMotionPreference() {
+  if (reducedMotion.matches) {
+    setReducedOpening();
+  } else {
+    opening.classList.remove("is-reduced-motion");
+    queueOpeningRender();
+  }
+}
+
+setOpeningCtaReady(false);
+renderOpening();
+window.addEventListener("scroll", queueOpeningRender, { passive: true });
+window.addEventListener("resize", queueOpeningRender, { passive: true });
+reducedMotion.addEventListener("change", handleMotionPreference);
+
+if ("IntersectionObserver" in window) {
+  const openingObserver = new IntersectionObserver(
+    ([entry]) => {
+      opening.classList.toggle("is-motion-active", entry.isIntersecting);
+      document.body.classList.toggle("opening-active", entry.isIntersecting);
+      if (entry.isIntersecting) queueOpeningRender();
+    },
+    { rootMargin: "80% 0px" },
+  );
+
+  openingObserver.observe(opening);
+} else {
+  opening.classList.add("is-motion-active");
+  document.body.classList.add("opening-active");
+}
+
 const units = {
   days: document.querySelector("[data-days]"),
   hours: document.querySelector("[data-hours]"),

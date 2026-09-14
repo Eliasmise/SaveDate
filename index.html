@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -26,7 +26,15 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Italiana&amp;family=Manrope:wght@400;500;600&amp;family=Mrs+Saint+Delafield&amp;display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/elias-diana-hd.jpg"
+      imagesrcset="/assets/elias-diana-hd-840.jpg 840w, /assets/elias-diana-hd.jpg 1394w"
+      imagesizes="(max-width: 640px) 78vw, 560px"
+    />
     <link rel="stylesheet" href="/styles.css" />
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script src="/script.js" type="module"></script>
   </head>
 
@@ -63,43 +71,97 @@
     </header>
 
     <main id="main">
-      <section class="hero" id="top" aria-labelledby="hero-title">
-        <div class="hero__edition" aria-hidden="true">No. 01&nbsp;&nbsp;/&nbsp;&nbsp;A love story</div>
-        <div class="hero__year" aria-hidden="true">Twenty twenty-seven</div>
+      <section class="opening" id="top" aria-labelledby="hero-title" data-opening>
+        <a class="opening__skip" href="#date">Skip opening animation</a>
 
-        <div class="hero__composition reveal">
-          <figure class="hero__portrait">
-            <img
-              src="/assets/elias-diana.jpg"
-              alt="Elias and Diana smiling together"
-              width="1394"
-              height="1128"
-              fetchpriority="high"
-            />
-          </figure>
+        <div class="opening__sticky">
+          <div class="opening__rings" aria-hidden="true"><i></i><i></i></div>
+          <p class="opening__edition" aria-hidden="true">No. 01&nbsp;&nbsp;/&nbsp;&nbsp;A love story</p>
+          <p class="opening__year" aria-hidden="true">Twenty twenty-seven</p>
 
-          <h1 class="hero__names" id="hero-title">
-            <span class="hero__name hero__name--first">Elias</span>
-            <span class="hero__name hero__name--second">Diana</span>
-          </h1>
+          <div class="opening__stage" data-opening-stage>
+            <div class="envelope" data-envelope>
+              <div class="envelope__shadow" aria-hidden="true"></div>
 
-          <a
-            class="hero__seal"
-            href="/save-the-date.ics"
-            download
-            aria-label="Add Elias and Diana's wedding date to your calendar"
-          >
-            <span>Save</span>
-            <i aria-hidden="true">the</i>
-            <span>Date</span>
-            <small>↗</small>
-          </a>
+              <div class="envelope__back" aria-hidden="true">
+                <span class="envelope__return">Elias · Diana · August 7, 2027</span>
+              </div>
+
+              <div class="envelope__flap" aria-hidden="true">
+                <div class="envelope__flap-face envelope__flap-face--outer">
+                  <span class="envelope__postmark">08&nbsp;&nbsp;·&nbsp;&nbsp;07&nbsp;&nbsp;·&nbsp;&nbsp;27</span>
+                  <div class="envelope__address">
+                    <small>With love,</small>
+                    <strong><span>Elias</span><span>Diana</span></strong>
+                  </div>
+                  <span class="envelope__flap-seal">E<span>D</span></span>
+                </div>
+                <div class="envelope__flap-face envelope__flap-face--inner">
+                  <span>A little love note</span>
+                </div>
+              </div>
+
+              <article class="invitation-card" data-invitation-card aria-labelledby="hero-title">
+                <div class="invitation-card__meta invitation-card__meta--top">
+                  <p>Save our date</p>
+                  <p>Formal invitation<br />to follow</p>
+                </div>
+
+                <div class="invitation-card__portrait">
+                  <h1 class="invitation-card__names" id="hero-title">
+                    <span class="invitation-card__name invitation-card__name--first">Elias</span>
+                    <span class="invitation-card__name invitation-card__name--second">Diana</span>
+                  </h1>
+                  <picture>
+                    <source
+                      media="(max-width: 640px)"
+                      srcset="/assets/elias-diana-hd-840.jpg"
+                    />
+                    <img
+                      src="/assets/elias-diana-hd.jpg"
+                      srcset="/assets/elias-diana-hd-840.jpg 840w, /assets/elias-diana-hd.jpg 1394w"
+                      sizes="(max-width: 640px) 78vw, 560px"
+                      alt="Elias and Diana smiling together"
+                      width="1394"
+                      height="1128"
+                      fetchpriority="high"
+                      decoding="async"
+                    />
+                  </picture>
+
+                  <a
+                    class="invitation-card__seal"
+                    href="/save-the-date.ics"
+                    download
+                    data-opening-cta
+                    aria-label="Add Elias and Diana's wedding date to your calendar"
+                  >
+                    <span>Save</span>
+                    <i aria-hidden="true">the</i>
+                    <span>Date</span>
+                    <small aria-hidden="true">↗</small>
+                  </a>
+                </div>
+
+                <div class="invitation-card__meta invitation-card__meta--bottom">
+                  <time datetime="2027-08-07">August 7,<br />2027</time>
+                  <p>Saturday<br />With love</p>
+                </div>
+              </article>
+
+              <div class="envelope__pocket" aria-hidden="true">
+                <span class="envelope__seam envelope__seam--left"></span>
+                <span class="envelope__seam envelope__seam--right"></span>
+              </div>
+              <div class="envelope__rim" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div class="opening__prompt" aria-hidden="true" data-opening-prompt>
+            <span>Scroll to open</span>
+            <i></i>
+          </div>
         </div>
-
-        <a class="scroll-cue" href="#date">
-          <span>Scroll to discover</span>
-          <i aria-hidden="true"></i>
-        </a>
       </section>
 
       <div class="date-ribbon" aria-hidden="true">
@@ -155,11 +217,14 @@
           <div class="story__photo-wrap">
             <img
               class="story__photo"
-              src="/assets/elias-diana.jpg"
+              src="/assets/elias-diana-hd.jpg"
+              srcset="/assets/elias-diana-hd-840.jpg 840w, /assets/elias-diana-hd.jpg 1394w"
+              sizes="(max-width: 980px) calc(100vw - 48px), 560px"
               alt="A candid portrait of Elias and Diana"
               width="1394"
               height="1128"
               loading="lazy"
+              decoding="async"
             />
             <span class="story__photo-index">01 / 02</span>
           </div>
