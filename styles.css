@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "Achilleus";
+  src: url("/assets/fonts/achilleus-script.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "ED Lavonia";
+  src: url("/assets/fonts/ed-lavonia-regular.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
 :root {
   --paper: #f4efe7;
   --paper-deep: #e8ded2;
@@ -8,9 +24,9 @@
   --champagne: #b99a73;
   --line: rgba(72, 47, 41, 0.2);
   --display: "Italiana", "Times New Roman", serif;
-  --script: "Mrs Saint Delafield", "Snell Roundhand", cursive;
+  --script: "ED Lavonia", "Mrs Saint Delafield", "Snell Roundhand", cursive;
   --sans: "Manrope", Helvetica, Arial, sans-serif;
-  --mono: "DM Mono", "Courier New", monospace;
+  --mono: "Achilleus", "DM Mono", "Courier New", monospace;
   --page: min(1240px, calc(100% - 64px));
   --section-pad: clamp(96px, 12vw, 180px);
 }
@@ -1150,7 +1166,7 @@ body.opening-active::before {
 .finale__signature {
   margin: 36px 0 0;
   color: var(--wine);
-  font: italic 400 clamp(28px, 3vw, 42px)/1 Georgia, serif;
+  font: 400 clamp(42px, 4.8vw, 66px)/0.8 var(--script);
 }
 
 .faq {
