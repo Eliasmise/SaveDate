@@ -17,6 +17,7 @@ const easeOutCubic = (progress) => 1 - (1 - progress) ** 3;
 
 let openingFrame = 0;
 let openingCtaReady;
+let openingProgress = 0;
 
 function setOpeningCtaReady(ready) {
   if (ready === openingCtaReady) return;
@@ -52,13 +53,15 @@ function renderOpening() {
   const viewportHeight = window.innerHeight;
   const bounds = opening.getBoundingClientRect();
   const scrollDistance = Math.max(1, bounds.height - viewportHeight);
-  const progress = clamp(-bounds.top / scrollDistance);
+  const scrollProgress = clamp(-bounds.top / scrollDistance);
+  openingProgress = Math.max(openingProgress, scrollProgress);
+  const progress = openingProgress;
 
   const flapProgress = smoothstep(phase(progress, 0.08, 0.31));
   const cardProgress = easeOutCubic(phase(progress, 0.28, 0.68));
   const settleProgress = smoothstep(phase(progress, 0.62, 0.88));
   const copyProgress = smoothstep(phase(progress, 0.64, 0.84));
-  const envelopeFade = smoothstep(phase(progress, 0.74, 0.96));
+  const envelopeFade = smoothstep(phase(progress, 0.64, 0.84));
   const promptFade = smoothstep(phase(progress, 0.03, 0.18));
 
   const extractedCardY = mix(viewportHeight * 0.015, -viewportHeight * 0.24, cardProgress);
@@ -75,7 +78,7 @@ function renderOpening() {
   openingStage.style.setProperty("--card-rotate", `${cardRotation.toFixed(3)}deg`);
   openingStage.style.setProperty("--copy-opacity", copyProgress.toFixed(4));
   openingStage.style.setProperty("--envelope-y", `${mix(0, viewportHeight * 0.34, settleProgress).toFixed(2)}px`);
-  openingStage.style.setProperty("--envelope-opacity", mix(1, 0.28, envelopeFade).toFixed(4));
+  openingStage.style.setProperty("--envelope-opacity", mix(1, 0, envelopeFade).toFixed(4));
   opening.style.setProperty("--prompt-opacity", (1 - promptFade).toFixed(4));
 
   opening.classList.toggle("is-flap-behind", flapProgress >= 0.5);

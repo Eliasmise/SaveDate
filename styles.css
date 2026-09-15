@@ -1,12 +1,4 @@
 @font-face {
-  font-family: "Achilleus";
-  src: url("/assets/fonts/achilleus-script.otf") format("opentype");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 400;
-}
-
-@font-face {
   font-family: "ED Lavonia";
   src: url("/assets/fonts/ed-lavonia-regular.ttf") format("truetype");
   font-display: swap;
@@ -26,7 +18,7 @@
   --display: "Italiana", "Times New Roman", serif;
   --script: "ED Lavonia", "Mrs Saint Delafield", "Snell Roundhand", cursive;
   --sans: "Manrope", Helvetica, Arial, sans-serif;
-  --mono: "Achilleus", "DM Mono", "Courier New", monospace;
+  --mono: "DM Mono", "Courier New", monospace;
   --page: min(1240px, calc(100% - 64px));
   --section-pad: clamp(96px, 12vw, 180px);
 }
@@ -331,7 +323,8 @@ button {
 .envelope {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
+  isolation: isolate;
+  perspective: 1400px;
 }
 
 .envelope__shadow,
@@ -340,6 +333,7 @@ button {
 .envelope__pocket,
 .envelope__rim {
   opacity: var(--envelope-opacity);
+  pointer-events: none;
 }
 
 .envelope__shadow {
@@ -405,7 +399,7 @@ button {
 }
 
 .opening.is-flap-behind .envelope__flap {
-  z-index: 1;
+  z-index: 0;
 }
 
 .envelope__flap-face {
@@ -457,28 +451,14 @@ button {
 }
 
 .envelope__address {
-  display: grid;
-  margin-top: -7%;
-  place-items: center;
+  margin-top: -4%;
   color: var(--wine-dark);
 }
 
 .envelope__address small {
-  margin-bottom: clamp(7px, 1vw, 12px);
-  font: 500 clamp(7px, 0.8vw, 10px)/1 var(--mono);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.envelope__address strong {
-  display: flex;
-  align-items: baseline;
-  gap: clamp(14px, 2vw, 26px);
-  font: italic 400 clamp(32px, 4.8vw, 64px)/0.8 Georgia, serif;
-}
-
-.envelope__address strong span:last-child {
-  transform: translateY(24%);
+  display: block;
+  font: italic 400 clamp(28px, 4.4vw, 58px)/1 Georgia, serif;
+  letter-spacing: 0.02em;
 }
 
 .envelope__flap-seal {
@@ -795,7 +775,7 @@ body.opening-active::before {
   --card-scale: 1;
   --card-y: -4svh;
   --copy-opacity: 1;
-  --envelope-opacity: 0.3;
+  --envelope-opacity: 0;
   --envelope-y: 34svh;
   --flap-angle: 178deg;
 }
@@ -1552,9 +1532,8 @@ body.opening-active::before {
     inset: 7px;
   }
 
-  .envelope__address strong {
-    gap: 13px;
-    font-size: clamp(30px, 10vw, 44px);
+  .envelope__address small {
+    font-size: clamp(26px, 8vw, 40px);
   }
 
   .invitation-card {
@@ -1773,7 +1752,7 @@ body.opening-active::before {
   --card-scale: 1;
   --card-y: -4svh;
   --copy-opacity: 1;
-  --envelope-opacity: 0.3;
+  --envelope-opacity: 0;
   --envelope-y: 34svh;
   --flap-angle: 178deg;
 }
@@ -1822,7 +1801,7 @@ body.opening-active::before {
     --card-scale: 1;
     --card-y: -4svh;
     --copy-opacity: 1;
-    --envelope-opacity: 0.3;
+    --envelope-opacity: 0;
     --envelope-y: 34svh;
     --flap-angle: 178deg;
   }
