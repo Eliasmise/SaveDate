@@ -55,21 +55,21 @@ function renderOpening() {
   const progress = clamp(-bounds.top / scrollDistance);
 
   const flapProgress = smoothstep(phase(progress, 0.08, 0.31));
-  const cardProgress = easeOutCubic(phase(progress, 0.25, 0.64));
-  const settleProgress = smoothstep(phase(progress, 0.58, 0.88));
-  const copyProgress = smoothstep(phase(progress, 0.58, 0.82));
+  const cardProgress = easeOutCubic(phase(progress, 0.28, 0.68));
+  const settleProgress = smoothstep(phase(progress, 0.62, 0.88));
+  const copyProgress = smoothstep(phase(progress, 0.64, 0.84));
   const envelopeFade = smoothstep(phase(progress, 0.74, 0.96));
   const promptFade = smoothstep(phase(progress, 0.03, 0.18));
 
-  const extractedCardY = mix(viewportHeight * 0.015, -viewportHeight * 0.22, cardProgress);
+  const extractedCardY = mix(viewportHeight * 0.015, -viewportHeight * 0.24, cardProgress);
   const cardY = mix(extractedCardY, -viewportHeight * 0.042, settleProgress);
-  const extractedScale = mix(0.58, 0.85, cardProgress);
-  const cardScale = mix(extractedScale, 0.98, settleProgress);
+  const extractedScale = mix(0.82, 0.96, cardProgress);
+  const cardScale = mix(extractedScale, 1, settleProgress);
   const extractedRotation = mix(-0.4, -1.15, cardProgress);
   const cardRotation = mix(extractedRotation, 0.55, settleProgress);
 
   openingStage.style.setProperty("--flap-angle", `${mix(0, 178, flapProgress).toFixed(3)}deg`);
-  openingStage.style.setProperty("--card-opacity", smoothstep(phase(progress, 0.17, 0.28)).toFixed(4));
+  openingStage.style.setProperty("--card-opacity", "1");
   openingStage.style.setProperty("--card-y", `${cardY.toFixed(2)}px`);
   openingStage.style.setProperty("--card-scale", cardScale.toFixed(4));
   openingStage.style.setProperty("--card-rotate", `${cardRotation.toFixed(3)}deg`);
