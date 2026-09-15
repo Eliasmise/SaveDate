@@ -513,25 +513,8 @@ button {
   pointer-events: none;
 }
 
-.invitation-card__meta {
-  position: relative;
-  z-index: 4;
-  display: flex;
-  justify-content: space-between;
-  opacity: var(--copy-opacity);
-  color: var(--wine-dark);
-  font: 500 clamp(6px, 0.78vw, 9px)/1.45 var(--mono);
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-.invitation-card__meta p,
-.invitation-card__meta time {
-  margin: 0;
-}
-
-.invitation-card__meta p:last-child {
-  text-align: right;
+.invitation-card__spacer {
+  min-height: clamp(17.4px, 2.262vw, 26.1px);
 }
 
 .invitation-card__portrait {
@@ -603,8 +586,8 @@ button {
 .invitation-card__seal {
   position: absolute;
   z-index: 5;
-  right: -5%;
-  bottom: -13%;
+  top: 50%;
+  right: clamp(-102px, -8vw, -72px);
   display: grid;
   width: clamp(64px, 7vw, 88px);
   aspect-ratio: 1;
@@ -620,7 +603,7 @@ button {
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  transform: rotate(8deg);
+  transform: translateY(-50%) rotate(8deg);
   transition: background-color 220ms ease, color 220ms ease, transform 220ms ease;
 }
 
@@ -646,7 +629,7 @@ button {
 
 .invitation-card__seal:hover,
 .invitation-card__seal:focus-visible {
-  transform: rotate(3deg) scale(1.04);
+  transform: translateY(-50%) rotate(3deg) scale(1.04);
   outline: none;
   background: var(--wine);
   color: var(--paper);
@@ -1543,10 +1526,6 @@ body.opening-active::before {
     padding: 10px 12px;
   }
 
-  .invitation-card__meta {
-    font-size: 6px;
-  }
-
   .invitation-card__portrait {
     margin-block: 0;
   }
@@ -1556,9 +1535,8 @@ body.opening-active::before {
   }
 
   .invitation-card__seal {
-    right: -4%;
-    bottom: -15%;
-    width: 56px;
+    right: -52px;
+    width: 48px;
     font-size: 8px;
   }
 
@@ -1727,8 +1705,9 @@ body.opening-active::before {
   }
 
   .invitation-card__seal {
-    width: 62px;
-    font-size: 9px;
+    right: -58px;
+    width: 52px;
+    font-size: 8px;
   }
 
   .opening__prompt {
