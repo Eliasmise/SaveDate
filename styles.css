@@ -310,6 +310,7 @@ button {
   --envelope-opacity: 1;
   --envelope-y: 0px;
   --flap-angle: 0deg;
+  --flap-scale-y: 1;
   position: absolute;
   z-index: 1;
   top: 54%;
@@ -317,6 +318,7 @@ button {
   width: min(860px, 94vw, 123.84svh);
   aspect-ratio: 1.44 / 1;
   transform: translate(-50%, -50%);
+  -webkit-perspective: 1400px;
   perspective: 1400px;
 }
 
@@ -324,6 +326,7 @@ button {
   position: absolute;
   inset: 0;
   isolation: isolate;
+  -webkit-perspective: 1400px;
   perspective: 1400px;
 }
 
@@ -393,8 +396,11 @@ button {
   left: 0;
   width: 100%;
   height: 64%;
+  -webkit-transform: translate3d(0, var(--envelope-y), 1px) rotateX(var(--flap-angle));
   transform: translate3d(0, var(--envelope-y), 1px) rotateX(var(--flap-angle));
+  -webkit-transform-origin: 50% 0;
   transform-origin: 50% 0;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 
@@ -407,6 +413,7 @@ button {
   inset: 0;
   display: grid;
   place-items: center;
+  -webkit-clip-path: polygon(0 0, 100% 0, 50% 100%);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -429,6 +436,7 @@ button {
 }
 
 .envelope__flap-face--inner {
+  -webkit-transform: rotateX(180deg);
   transform: rotateX(180deg);
   border-top: 1px solid rgba(69, 49, 42, 0.2);
   background-color: #dfd4c7;
@@ -761,6 +769,7 @@ body.opening-active::before {
   --envelope-opacity: 0;
   --envelope-y: 34svh;
   --flap-angle: 178deg;
+  --flap-scale-y: -1;
 }
 
 .no-js .envelope__flap {
@@ -1725,6 +1734,54 @@ body.opening-active::before {
   }
 }
 
+@media (hover: none) and (pointer: coarse) {
+  .opening__stage,
+  .envelope {
+    -webkit-perspective: none;
+    perspective: none;
+  }
+
+  .envelope__flap {
+    -webkit-transform: translateY(var(--envelope-y)) scaleY(var(--flap-scale-y));
+    transform: translateY(var(--envelope-y)) scaleY(var(--flap-scale-y));
+    -webkit-transform-style: flat;
+    transform-style: flat;
+  }
+
+  .envelope__flap-face {
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+  }
+
+  .envelope__flap-face--outer {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .envelope__flap-face--inner {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  .envelope__flap-face--inner span {
+    display: block;
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+  }
+
+  .opening.is-flap-behind .envelope__flap-face--outer {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .opening.is-flap-behind .envelope__flap-face--inner {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 .opening.is-reduced-motion {
   height: auto;
 }
@@ -1741,6 +1798,7 @@ body.opening-active::before {
   --envelope-opacity: 0;
   --envelope-y: 34svh;
   --flap-angle: 178deg;
+  --flap-scale-y: -1;
 }
 
 .opening.is-reduced-motion .envelope__flap {
@@ -1790,6 +1848,7 @@ body.opening-active::before {
     --envelope-opacity: 0;
     --envelope-y: 34svh;
     --flap-angle: 178deg;
+    --flap-scale-y: -1;
   }
 
   .envelope__flap {

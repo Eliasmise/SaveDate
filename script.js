@@ -58,6 +58,8 @@ function renderOpening() {
   const progress = openingProgress;
 
   const flapProgress = smoothstep(phase(progress, 0.08, 0.31));
+  const projectedFlapScale = Math.cos(flapProgress * Math.PI);
+  const flapScaleY = Math.abs(projectedFlapScale) < 0.0001 ? 0 : projectedFlapScale;
   const cardProgress = easeOutCubic(phase(progress, 0.28, 0.68));
   const settleProgress = smoothstep(phase(progress, 0.62, 0.88));
   const copyProgress = smoothstep(phase(progress, 0.64, 0.84));
@@ -72,6 +74,7 @@ function renderOpening() {
   const cardRotation = mix(extractedRotation, 0.55, settleProgress);
 
   openingStage.style.setProperty("--flap-angle", `${mix(0, 178, flapProgress).toFixed(3)}deg`);
+  openingStage.style.setProperty("--flap-scale-y", flapScaleY.toFixed(4));
   openingStage.style.setProperty("--card-opacity", "1");
   openingStage.style.setProperty("--card-y", `${cardY.toFixed(2)}px`);
   openingStage.style.setProperty("--card-scale", cardScale.toFixed(4));
